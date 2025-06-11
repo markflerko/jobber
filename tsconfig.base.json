@@ -14,7 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@jobber-auth/prisma": [
+        "apps/jobber-auth/src/app/prisma"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
