@@ -16,4 +16,10 @@ export class UsersService {
       data: { ...data, password: await hash(data.password, 10) },
     });
   }
+
+  async getUser(args: Prisma.UserWhereUniqueInput) {
+    return this.prismaService.user.findUniqueOrThrow({
+      where: args,
+    });
+  }
 }
