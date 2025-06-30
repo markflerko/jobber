@@ -14,6 +14,11 @@ import { UsersModule } from './users/users.module';
       driver: ApolloDriver,
       context: ({ req, res }) => ({ req, res }),
       autoSchemaFile: true,
+      playground: {
+        settings: {
+          'request.credentials': 'include',
+        },
+      },
     }),
     UsersModule,
     AuthModule,
