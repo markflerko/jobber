@@ -1,4 +1,5 @@
 import { DiscoveryModule } from '@golevelup/nestjs-discovery';
+import { PulsarModule } from '@jobber/pulsar';
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { join } from 'path';
@@ -10,6 +11,7 @@ import { JobsService } from './jobs.service';
 @Module({
   imports: [
     DiscoveryModule,
+    PulsarModule,
     ClientsModule.register([
       {
         name: AUTH_PACKAGE_NAME,
