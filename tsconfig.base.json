@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@jobber-auth/prisma": ["apps/jobber-auth/src/app/prisma"],
+      "@auth/prisma": ["apps/auth/src/app/prisma"],
       "@jobber/nestjs": ["libs/nestjs/src/index.ts"],
       "@jobber/pulsar": ["libs/pulsar/src/index.ts"]
     }
