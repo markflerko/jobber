@@ -1,4 +1,4 @@
-import { GqlContext } from '@jobber/nestjs';
+import { GqlContext } from 'libs/graphql/src';
 import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
 import { User } from '../users/models/user.model';
 import { AuthService } from './auth.service';
