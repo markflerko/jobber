@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@auth/prisma": ["apps/auth/src/app/prisma"],
       "@jobber/graphql": ["libs/nestjs/src/index.ts"],
       "@jobber/grpc": ["libs/grpc/src/index.ts"],
       "@jobber/nestjs": ["libs/nestjs/src/index.ts"],
