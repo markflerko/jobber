@@ -3,14 +3,21 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/auth/src",
   "projectType": "application",
-  "implicitDependencies": ["auth"],
+  "implicitDependencies": [
+    "auth"
+  ],
   "tags": [],
   "targets": {
     "build": {
-      "dependsOn": ["generate-prisma", "generate-ts-proto"]
+      "dependsOn": [
+        "generate-prisma",
+        "^build"
+      ]
     },
     "test": {
-      "dependsOn": ["generate-prisma"]
+      "dependsOn": [
+        "generate-prisma"
+      ]
     },
     "migrate-prisma": {
       "command": "prisma migrate dev",
@@ -22,7 +29,9 @@
       "command": "prisma generate",
       "options": {
         "cwd": "{projectRoot}",
-        "inputs": ["prisma/schema.prisma"]
+        "inputs": [
+          "prisma/schema.prisma"
+        ]
       },
       "cache": true
     },
@@ -30,7 +39,9 @@
       "continuous": true,
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
-      "dependsOn": ["build"],
+      "dependsOn": [
+        "build"
+      ],
       "options": {
         "buildTarget": "auth:build",
         "runBuildTargetDependencies": true
@@ -43,9 +54,6 @@
           "buildTarget": "auth:build:production"
         }
       }
-    },
-    "generate-ts-proto": {
-      "command": "nx generate-ts-proto"
     }
   }
 }

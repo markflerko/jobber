@@ -1,13 +1,8 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
 import { init } from '@jobber/nestjs';
 import { NestFactory } from '@nestjs/core';
 import { GrpcOptions, Transport } from '@nestjs/microservices';
 import { join } from 'path';
-import { AUTH_PACKAGE_NAME } from 'libs/grpc/src/lib/proto/types/proto/auth';
+import { AUTH_PACKAGE_NAME } from '@jobber/grpc';
 import { AppModule } from './app/app.module';
 
 async function bootstrap() {
