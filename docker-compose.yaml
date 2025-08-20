@@ -4,7 +4,7 @@ services:
     ports:
       - 5433:5432
     environment:
-      POSTGRES_DB: auth
+      POSTGRES_DB: jobber-auth
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: example
 
