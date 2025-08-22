@@ -1,3 +1,4 @@
+import { GqlLoggingPlugin } from '@jobber/graphql';
 import { LoggerModule } from '@jobber/nestjs';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
@@ -16,6 +17,7 @@ import { UsersModule } from './users/users.module';
       driver: ApolloDriver,
       context: ({ req, res }) => ({ req, res }),
       autoSchemaFile: true,
+      plugins: [new GqlLoggingPlugin()],
       playground: {
         settings: {
           'request.credentials': 'include',
