@@ -42,7 +42,8 @@
     "pulsar-client": "^1.14.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
-    "ts-proto": "^1.181.2"
+    "ts-proto": "^1.181.2",
+    "uuid": "^11.1.0"
   },
   "_moduleAliases": {
     "@jobber/grpc": "dist/libs/grpc/main",
