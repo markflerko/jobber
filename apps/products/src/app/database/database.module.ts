@@ -11,8 +11,10 @@ import { DATABASE_CONNECTION } from './database-connection';
     {
       provide: DATABASE_CONNECTION,
       useFactory: (configService: ConfigService) => {
+        const databaseUrl = configService.getOrThrow('DATABASE_URL');
+        console.log('DATABASE_URL:', databaseUrl); // <-- логирование значения
         const pool = new Pool({
-          connectionString: configService.getOrThrow('DATABASE_URL'),
+          connectionString: databaseUrl,
         });
 
         return drizzle(pool, {
