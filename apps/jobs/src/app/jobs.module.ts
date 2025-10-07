@@ -1,13 +1,14 @@
 import { DiscoveryModule } from '@golevelup/nestjs-discovery';
+import { Packages } from '@jobber/grpc';
 import { PulsarModule } from '@jobber/pulsar';
 import { Module } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { join } from 'path';
-import { Packages } from '@jobber/grpc';
-import { FibonacciJob } from './jobs/fibonacci/fibonacci.job';
 import { JobsResolver } from './jobs.resolver';
 import { JobsService } from './jobs.service';
-import { ConfigService } from '@nestjs/config';
+import { FibonacciJob } from './jobs/fibonacci/fibonacci.job';
+import { LoadProductsJob } from './jobs/products/load-products.job';
 
 @Module({
   imports: [
@@ -28,6 +29,6 @@ import { ConfigService } from '@nestjs/config';
       },
     ]),
   ],
-  providers: [FibonacciJob, JobsService, JobsResolver],
+  providers: [FibonacciJob, JobsService, JobsResolver, LoadProductsJob],
 })
 export class JobsModule {}
