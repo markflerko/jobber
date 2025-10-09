@@ -18,16 +18,16 @@ export class LoadProductsMessage {
 
   @IsNumber()
   @Min(0)
-  price: string;
+  price: number;
 
   @IsInt()
   @Min(0)
-  stock: string;
+  stock: number;
 
   @IsNumber()
   @Min(0)
   @Max(5)
-  rating: string;
+  rating: number;
 
   @IsString()
   @IsNotEmpty()
