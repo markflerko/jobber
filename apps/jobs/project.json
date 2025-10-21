@@ -6,16 +6,7 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "webpack-cli build",
-        "args": ["node-env=production"]
-      },
-      "configurations": {
-        "development": {
-          "args": ["node-env=development"]
-        }
-      }
+      "dependsOn": ["generate-prisma", "^build"]
     },
     "serve": {
       "continuous": true,
@@ -36,9 +27,21 @@
       }
     },
     "test": {
+      "dependsOn": ["generate-prisma"]
+    },
+    "migrate-prisma": {
+      "command": "prisma migrate dev",
       "options": {
-        "passWithNoTests": true
+        "cwd": "{projectRoot}"
       }
+    },
+    "generate-prisma": {
+      "command": "prisma generate",
+      "options": {
+        "cwd": "{projectRoot}",
+        "inputs": ["prisma/schema.prisma"]
+      },
+      "cache": true
     }
   }
 }
