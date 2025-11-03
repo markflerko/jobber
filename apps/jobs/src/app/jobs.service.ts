@@ -8,17 +8,22 @@ import {
   InternalServerErrorException,
   OnModuleInit,
 } from '@nestjs/common';
+import { JobStatus } from './models/job-status.enum';
 import { readFileSync } from 'fs';
 import { JOB_METADATA_KEY } from './decorators/job.decorator';
 import { JobMetadata } from './interfaces/job-metadata.interface';
 import { AbstractJob } from './jobs/abstract.job';
+import { PrismaService } from './prisma/prisma.service';
 import { UPLOAD_FILE_PATH } from './uploads/upload';
 
 @Injectable()
 export class JobsService implements OnModuleInit {
   private jobs: DiscoveredClassWithMeta<JobMetadata>[] = [];
 
-  constructor(private readonly discoveryService: DiscoveryService) {}
+  constructor(
+    private readonly discoveryService: DiscoveryService,
+    private readonly prismaService: PrismaService
+  ) {}
 
   async onModuleInit() {
     this.jobs = await this.discoveryService.providersWithMetaAtKey<JobMetadata>(
@@ -28,6 +33,42 @@ export class JobsService implements OnModuleInit {
 
   getJobs() {
     return this.jobs.map((job) => job.meta);
+  }
+
+  async acknowledge(jobId: number) {
+    const job = await this.prismaService.job.findUnique({
+      where: {
+        id: jobId,
+      },
+    });
+
+    if (!job) {
+      throw new BadRequestException(`Job with ID ${jobId} does not exist`);
+    }
+
+    if (job.ended) {
+      return;
+    }
+
+    const updatedJob = await this.prismaService.job.update({
+      where: {
+        id: jobId,
+      },
+      data: {
+        completed: {
+          increment: 1,
+        },
+      },
+    });
+
+    if (updatedJob.completed === job.size) {
+      await this.prismaService.job.update({
+        where: { id: jobId },
+        data: { status: JobStatus.COMPLETED, ended: new Date() },
+      });
+    }
+
+    return updatedJob;
   }
 
   async executeJob(name: string, data: any) {
