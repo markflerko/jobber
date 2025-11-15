@@ -4,11 +4,13 @@ import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { join } from 'path';
+import { JobClientsModule } from '../job-clients.module';
 import { LoadProductsConsumer } from './load-products.consumer';
 
 @Module({
   imports: [
     PulsarModule,
+    JobClientsModule,
     ClientsModule.registerAsync([
       {
         name: Packages.PRODUCTS,
