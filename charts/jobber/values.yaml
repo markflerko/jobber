@@ -54,7 +54,7 @@ jobs:
   image: "015427871210.dkr.ecr.us-east-1.amazonaws.com/jobber/jobs:latest"
   port:
     http: 3001
-    grpc: 3002
+    grpc: 5002
 
 executor:
   enabled: true
