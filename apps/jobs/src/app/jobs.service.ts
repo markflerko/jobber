@@ -8,11 +8,11 @@ import {
   InternalServerErrorException,
   OnModuleInit,
 } from '@nestjs/common';
-import { JobStatus } from './models/job-status.enum';
 import { readFileSync } from 'fs';
 import { JOB_METADATA_KEY } from './decorators/job.decorator';
 import { JobMetadata } from './interfaces/job-metadata.interface';
 import { AbstractJob } from './jobs/abstract.job';
+import { JobStatus } from './models/job-status.enum';
 import { PrismaService } from './prisma/prisma.service';
 import { UPLOAD_FILE_PATH } from './uploads/upload';
 
@@ -31,7 +31,7 @@ export class JobsService implements OnModuleInit {
     );
   }
 
-  getJobs() {
+  getJobMetadata() {
     return this.jobs.map((job) => job.meta);
   }
 
@@ -71,6 +71,16 @@ export class JobsService implements OnModuleInit {
     return updatedJob;
   }
 
+  async getJobs() {
+    return this.prismaService.job.findMany();
+  }
+
+  async getJob(jobId: number) {
+    return this.prismaService.job.findUnique({
+      where: { id: jobId },
+    });
+  }
+
   async executeJob(name: string, data: any) {
     const job = this.jobs.find((job) => job.meta.name === name);
     if (!job) {
@@ -81,11 +91,10 @@ export class JobsService implements OnModuleInit {
         'Job is not an instance of AbstractJob'
       );
     }
-    await job.discoveredClass.instance.execute(
+    return job.discoveredClass.instance.execute(
       data?.fileName ? this.getFile(data.fileName) : data,
       job.meta.name
     );
-    return job.meta;
   }
 
   private getFile(fileName?: string) {
