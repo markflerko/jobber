@@ -17,6 +17,7 @@ import { UsersModule } from './users/users.module';
       driver: ApolloDriver,
       context: ({ req, res }) => ({ req, res }),
       autoSchemaFile: true,
+      useGlobalPrefix: true,
       plugins: [new GqlLoggingPlugin()],
       playground: {
         settings: {
