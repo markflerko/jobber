@@ -1,0 +1,5 @@
+ingress:
+  alb: true
+
+persistence:
+  ebs: true
