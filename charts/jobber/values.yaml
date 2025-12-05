@@ -43,6 +43,9 @@ pulsar:
 
 postgresql:
   namespaceOverride: postgresql
+  image:
+    registry: public.ecr.aws
+    repository: bitnami/postgresql
   auth:
     username: postgres
     password: postgres

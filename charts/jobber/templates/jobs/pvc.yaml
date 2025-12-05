@@ -13,5 +13,5 @@ spec:
     requests:
       storage: 5Gi
   {{- if .Values.persistence.ebs }}
-  storageClassName: ebs-cs
+  storageClassName: ebs-sc
   {{- end }}
