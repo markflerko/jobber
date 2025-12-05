@@ -30,6 +30,8 @@ export class AuthService {
       httpOnly: true,
       secure: this.configService.get('NODE_ENV') === 'production',
       expires,
+      path: '/',
+      sameSite: 'lax',
     });
     return user;
   }
