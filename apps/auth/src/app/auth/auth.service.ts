@@ -28,10 +28,8 @@ export class AuthService {
     const accessToken = this.jwtService.sign(tokenPayload);
     response.cookie('Authentication', accessToken, {
       httpOnly: true,
-      secure: this.configService.get('NODE_ENV') === 'production',
+      secure: !!this.configService.get('SECURE_COOKIE'),
       expires,
-      path: '/',
-      sameSite: 'lax',
     });
     return user;
   }

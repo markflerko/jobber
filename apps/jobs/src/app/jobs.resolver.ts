@@ -7,7 +7,7 @@ import { JobMetadata } from './models/job-metadata.model';
 import { Job } from './models/job.model';
 
 @Resolver()
-@UseGuards(GqlAuthGuard)
+// @UseGuards(GqlAuthGuard)
 export class JobsResolver {
   constructor(private readonly jobsService: JobsService) {}
 
