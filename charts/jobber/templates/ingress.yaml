@@ -7,17 +7,17 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/group.name: my-ingress-group
-    alb.ingress.kubernetes.io/listen-ports: '[{ "HTTP": 80 }]'
+    alb.ingress.kubernetes.io/listen-ports: '[{ "HTTP": 80 }, { "HTTPS": 443 }]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:015427871210:certificate/7f804d97-6385-432b-90d5-59fa2da7ae51
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
   {{- end }}
 spec:
   {{- if .Values.ingress.alb }}
   ingressClassName: alb
   {{- end }}
   rules:
-    - http:
-      {{- if not .Values.ingress.alb }}
-      host: jobber.local
-      {{- end }}
+    - host: {{ if .Values.ingress.alb }} jobber-backend-murk.com {{ else }} jobber.local {{ end }}
+      http:
         paths:
           - path: /jobs
             pathType: Prefix

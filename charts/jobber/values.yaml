@@ -82,6 +82,7 @@ auth:
   jwt:
     secret: 4KlCEqD5GgHt34Ep81ezzME6mReaOBbO
     expirationMs: "28800000"
+    secure: false
 
 products:
   enabled: true
